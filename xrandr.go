@@ -352,6 +352,11 @@ func parseSize(s string) (*Size, error) {
 		return nil, fmt.Errorf("invalid size format; expected format WxH but got %s", s)
 	}
 
+	switch s[len(s)-1] {
+	case 'i', 'p': // ignore i or p postfix
+		s = s[:len(s)-1]
+	}
+
 	res := strings.Split(s, "x")
 	width, err := strconv.Atoi(strings.TrimSpace(res[0]))
 	if err != nil {
